@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const BOX_COUNTS = { 1: 5, 2: 10, 3: 15 };
+const BOX_COUNTS: Record<number, number> = { 1: 5, 2: 10, 3: 15 };
 
 export default function SurvivalBox() {
   const [level, setLevel] = useState(1);
