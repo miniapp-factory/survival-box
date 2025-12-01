@@ -1,0 +1,16 @@
+
+# 2025-12-01 05:23:40.756512
++Code the following app
++```
++Create a simple text-based Survival Box game. There are 10 boxes. One of them contains a trap, and the rest are safe. At the start of the game, randomly assign which box has the trap. Each round, the player chooses a box number. If the box is safe, display ‘SAFE!’ and remove that box from the list so it can’t be chosen again. If the player picks the trap, display ‘GAME OVER — You chose the trap!’ and end the game. The game should keep running until the player hits the trap or all safe boxes are opened. Use clear text output and simple input.
++```
++
++Generate an app logo and update the app metadata title and description.
+
+# 2025-12-01 05:23:40.757029
++Code the following app
++```
++Create a simple text-based Survival Box game. There are 10 boxes. One of them contains a trap, and the rest are safe. At the start of the game, randomly assign which box has the trap. Each round, the player chooses a box number. If the box is safe, display ‘SAFE!’ and remove that box from the list so it can’t be chosen again. If the player picks the trap, display ‘GAME OVER — You chose the trap!’ and end the game. The game should keep running until the player hits the trap or all safe boxes are opened. Use clear text output and simple input.
++```
++
++Generate an app logo and update the app metadata title and description.
