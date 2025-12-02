@@ -23,7 +23,13 @@ export default function SurvivalBox() {
 
   useEffect(() => {
     // Reset game state when level changes
-    setTrapIndex(Math.floor(Math.random() * totalBoxes) + 1);
+    const bombs = BOMB_COUNTS[level];
+    const indices: number[] = [];
+    while (indices.length < bombs) {
+      const idx = Math.floor(Math.random() * totalBoxes) + 1;
+      if (!indices.includes(idx)) indices.push(idx);
+    }
+    setTrapIndex(indices);
     setAvailable(Array.from({ length: totalBoxes }, (_, i) => i + 1));
     setStatus("");
     setSelected([]);
@@ -38,12 +44,16 @@ export default function SurvivalBox() {
           return;
         }
       }
+    } else if (level === 2 && selected.length >= 5) {
+      setStatus("You win! Opened 5 safe boxes.");
+    } else if (level === 3 && selected.length >= 8) {
+      setStatus("You win! Opened 8 safe boxes.");
     }
   }, [selected, level]);
 
   const handlePick = (box: number) => {
     if (status.includes("trap") || status.includes("win")) return;
-    if (box === trapIndex) {
+    if (trapIndex.includes(box)) {
       setStatus(`GAME OVER — You chose the trap!`);
       setAvailable([]);
     } else {
