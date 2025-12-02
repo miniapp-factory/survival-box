@@ -3,11 +3,20 @@
 import { useState, useEffect } from "react";
 
 const BOX_COUNTS: Record<number, number> = { 1: 5, 2: 10, 3: 15 };
+const BOMB_COUNTS: Record<number, number> = { 1: 1, 2: 1, 3: 2 };
 
 export default function SurvivalBox() {
   const [level, setLevel] = useState(1);
   const totalBoxes = BOX_COUNTS[level];
-  const [trapIndex, setTrapIndex] = useState(() => Math.floor(Math.random() * totalBoxes) + 1);
+  const [trapIndex, setTrapIndex] = useState<number[]>(() => {
+    const bombs = BOMB_COUNTS[level];
+    const indices: number[] = [];
+    while (indices.length < bombs) {
+      const idx = Math.floor(Math.random() * totalBoxes) + 1;
+      if (!indices.includes(idx)) indices.push(idx);
+    }
+    return indices;
+  });
   const [available, setAvailable] = useState<number[]>(Array.from({ length: totalBoxes }, (_, i) => i + 1));
   const [status, setStatus] = useState<string>("");
   const [selected, setSelected] = useState<number[]>([]);
