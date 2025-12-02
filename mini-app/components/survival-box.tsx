@@ -82,6 +82,14 @@ export default function SurvivalBox() {
         ))}
       </div>
       {status && <p className="text-xl font-semibold">{status}</p>}
+      {status.includes("trap") && (
+        <button
+          className="mt-4 px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600"
+          onClick={() => setLevel(1)}
+        >
+          Restart
+        </button>
+      )}
       {level > 1 && available.length === 0 && !status.includes("trap") && (
         <p className="text-xl font-semibold">Congratulations! All safe boxes opened.</p>
       )}
