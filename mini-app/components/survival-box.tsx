@@ -20,6 +20,18 @@ export default function SurvivalBox() {
     setSelected([]);
   }, [level, totalBoxes]);
 
+  useEffect(() => {
+    if (level === 1 && selected.length >= 3) {
+      const sorted = [...selected].sort((a, b) => a - b);
+      for (let i = 0; i <= sorted.length - 3; i++) {
+        if (sorted[i + 2] - sorted[i] === 2) {
+          setStatus("You win! All three consecutive boxes opened.");
+          return;
+        }
+      }
+    }
+  }, [selected, level]);
+
   const handlePick = (box: number) => {
     if (status.includes("trap") || status.includes("win")) return;
     if (box === trapIndex) {
