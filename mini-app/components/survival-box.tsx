@@ -10,22 +10,25 @@ export default function SurvivalBox() {
   const [trapIndex, setTrapIndex] = useState(() => Math.floor(Math.random() * totalBoxes) + 1);
   const [available, setAvailable] = useState<number[]>(Array.from({ length: totalBoxes }, (_, i) => i + 1));
   const [status, setStatus] = useState<string>("");
+  const [selected, setSelected] = useState<number[]>([]);
 
   useEffect(() => {
     // Reset game state when level changes
     setTrapIndex(Math.floor(Math.random() * totalBoxes) + 1);
     setAvailable(Array.from({ length: totalBoxes }, (_, i) => i + 1));
     setStatus("");
+    setSelected([]);
   }, [level, totalBoxes]);
 
   const handlePick = (box: number) => {
-    if (status.includes("trap")) return;
+    if (status.includes("trap") || status.includes("win")) return;
     if (box === trapIndex) {
       setStatus(`GAME OVER — You chose the trap!`);
       setAvailable([]);
     } else {
       setStatus(`SAFE!`);
       setAvailable(prev => prev.filter(b => b !== box));
+      setSelected(prev => [...prev, box]);
     }
   };
 
@@ -43,15 +46,15 @@ export default function SurvivalBox() {
             className="w-12 h-12 rounded-md bg-primary text-primary-foreground hover:bg-primary/80"
             onClick={() => handlePick(box)}
           >
-            {box}
+            🗝️
           </button>
         ))}
       </div>
       {status && <p className="text-xl font-semibold">{status}</p>}
-      {available.length === 0 && !status.includes("trap") && (
+      {level > 1 && available.length === 0 && !status.includes("trap") && (
         <p className="text-xl font-semibold">Congratulations! All safe boxes opened.</p>
       )}
-      {available.length === 0 && !status.includes("trap") && level < 3 && (
+      {status.includes("win") && level < 3 && (
         <button
           className="mt-4 px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600"
           onClick={handleNextLevel}
